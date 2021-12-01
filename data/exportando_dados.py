@@ -1,11 +1,14 @@
 import pandas as pd
 
-dados = pd.read_csv("data\\dados_federais_obitos_cg.csv", encoding='UTF-8', error_bad_lines=False)
+dados = pd.read_csv("data\\INFLUD21-15-11-2021.csv", encoding='UTF-8', error_bad_lines=False)
 
-dados["dataNotificacao"] = dados["dataNotificacao"].str.slice(stop=10)
-dados = dados.loc[dados['dataNotificacao'] >= '2021-06-01']
-dados = dados.loc[dados['dataNotificacao'] <= '2021-08-31']
-dados.to_csv('dados_federais_obitos_cg.csv', index=False)
+dados = dados.loc[dados['CO_MUN_NOT'] == 250400]
+dados['DT_NOTIFIC'] = pd.to_datetime(dados['DT_NOTIFIC'])   
+
+
+dados = dados.loc[dados['DT_NOTIFIC'] >= '2021-06-01']
+dados = dados.loc[dados['DT_NOTIFIC'] <= '2021-08-31']
+dados.to_csv('sindrome_gripal.csv', index=False)
 
 
 
